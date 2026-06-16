@@ -18,8 +18,12 @@ workflows:
       - name: Set up local.properties
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
+      - name: Generate Gradle Wrapper if missing
+        script: |
+          gradle wrapper
       - name: Build All 5 APKs (Flavors)
         script: |
+          chmod +x gradlew
           ./gradlew assembleMainAppRelease \
                     assembleMusicAppRelease \
                     assembleChatAppRelease \
