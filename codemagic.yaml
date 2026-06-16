@@ -18,14 +18,18 @@ workflows:
       - name: Set up local.properties
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
-      - name: Build All 5 APKs (Flavors)
+      - name: Force Gradle Wrapper Update
         script: |
-          # Use system gradle directly without relying on gradlew file
-          gradle assembleMainAppRelease \
-                 assembleMusicAppRelease \
-                 assembleChatAppRelease \
-                 assembleAdminAppRelease \
-                 assembleAnalyticsAppRelease
+          # Codemagic ke system gradle ko use karke naya wrapper banate hain
+          gradle wrapper --gradle-version 9.3.1
+          chmod +x gradlew
+      - name: Build All 5 APKs
+        script: |
+          ./gradlew assembleMainAppRelease \
+                    assembleMusicAppRelease \
+                    assembleChatAppRelease \
+                    assembleAdminAppRelease \
+                    assembleAnalyticsAppRelease
     artifacts:
       - app/build/outputs/apk/*/*/*.apk
     publishing:
