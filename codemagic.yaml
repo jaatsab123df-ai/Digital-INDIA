@@ -13,7 +13,7 @@ workflows:
       events:
         - push
       branch_patterns:
-        - target: 'main'
+        - pattern: 'main'
     scripts:
       - name: Set up local.properties
         script: |
