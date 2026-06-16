@@ -20,14 +20,12 @@ workflows:
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
       - name: Build All 5 APKs (Flavors)
         script: |
-          # Use specifically version 9.3.1 as required by your project
-          ./gradlew wrapper --gradle-version 9.3.1
-          chmod +x gradlew
-          ./gradlew assembleMainAppRelease \
-                    assembleMusicAppRelease \
-                    assembleChatAppRelease \
-                    assembleAdminAppRelease \
-                    assembleAnalyticsAppRelease
+          # Use system gradle directly without relying on gradlew file
+          gradle assembleMainAppRelease \
+                 assembleMusicAppRelease \
+                 assembleChatAppRelease \
+                 assembleAdminAppRelease \
+                 assembleAnalyticsAppRelease
     artifacts:
       - app/build/outputs/apk/*/*/*.apk
     publishing:
